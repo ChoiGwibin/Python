@@ -23,3 +23,9 @@ print(df.describe())
 # 범주형 데이터 포함 통계 정보 확인
 print("\n전체 데이터 통계:")
 print(df.describe(include='all'))
+
+
+# 1. 총 891개의 행(승객)과 12개의 열(변수) 확인
+# 2. Age(나이, 714), Cabin(객실, 204), Embarked(승선 항구, 889) 열에 결측값이 존재. 특히 Cabin은 결측값이 매우 많습니다.
+# 3. Survived(생존 여부)는 0과 1로 된 정수형(int64)입니다.
+# 4. Sex, Embarked, Name, Ticket, Cabin은 범주형(object) 데이터입니다.
