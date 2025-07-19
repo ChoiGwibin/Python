@@ -1,3 +1,8 @@
+# 1. 문제 정의 및 목표 설정
+# 문제: 타이타닉호 침몰 사고에서 승객들의 생존 여부에 영향을 미친 요인은 ?
+# 목표: 데이터를 분석하여 성별, 나이, 객실 등급 등 주요 변수와 생존율의 관계를 파악하고, 결론적으로 가장 중요한 생존 요인을 찾아낸다.
+
+# 2. 데이터 수집 및 초기 탐색
 # 필요한 라이브러리 불러오기
 import pandas as pd
 import numpy as np
@@ -24,6 +29,33 @@ print(df.describe())
 print("\n전체 데이터 통계:")
 print(df.describe(include='all'))
 
-
 # 1. 총 891개의 행(승객)과 12개의 열(변수) 확인
 # 2. Age(나이, 714), Cabin(객실, 204), Embarked(승선 항구, 889) 열에 결측값이 존재. 특히 Cabin은 결측값이 매우 많음.
+
+# 3. 탐색적 데이터 분석 (EDA)
+# 가설 1: 성별에 따른 생존율 차이
+# 가설 2: 나이에 따른 생존율 차이
+# 가설 3: 객실 등급에 따른 생존율 차이
+
+# 성별
+sns.barplot(x='Sex', y='Survived', data=df)
+plt.title('성별에 따른 생존율')
+plt.show()
+print(df.groupby('Sex')['Survived'].mean())
+# 결과: 여성(74.2%)의 생존율이 남성(18.8%)보다 높다.
+
+# 객실 등급
+sns.barplot(x='Pclass', y='Survived', data=df)
+plt.title('객실 등급에 따른 생존율')
+plt.show()
+print(df.groupby('Pclass')['Survived'].mean())
+# 결과: 등급이 내려갈수록 생존율도 낮아진다. (1등급 = 62.9%), (2등급 = 47.2%), (3등급 = 24.2%)
+
+# 나이 (연속적인 수치형 데이터이기 때문에 바 그래프는 파악이 어려우므로 히스토그램 사용)
+sns.histplot(data=df, x='Age', hue='Survived', kde=True, bins=20)
+plt.title('나이에 따른 생존율')
+plt.show()
+# 아직은 이런 수치형 데이터를 print 형식으로 값을 어떻게 보여줘야 할지 잘 모르겠다.
+# 결과: 성인들 특히 청년층의 사망 수가 높고 어린이의 생존율이 높다. = 아이 먼저 and 어른의 희생
+
+# 4. 데이터 전처리
